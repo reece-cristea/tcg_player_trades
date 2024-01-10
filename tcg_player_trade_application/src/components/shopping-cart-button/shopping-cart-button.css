@@ -1,0 +1,19 @@
+.shoppingCart {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+.cartButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#cartCounter {
+    padding: 1rem;
+    border-radius: 15%;
+    background-color: #042D02;
+    color: white;
+    margin-left: 0.5rem;
+}

@@ -1,0 +1,13 @@
+* {
+    scroll-behavior: smooth;
+    padding: 0;
+    margin: 0;
+}
+
+.App {
+    padding: 0;
+}
+
+.header {
+    padding: 0;
+}

@@ -1,0 +1,13 @@
+.navbar {
+    padding: 0;
+    display: flex;
+    border-bottom: 8px;
+    border-color: black;
+    border-style: none none solid none;
+    flex-direction: row;
+    width: 100%;
+}
+
+.spacer{
+    width: 45%;
+}

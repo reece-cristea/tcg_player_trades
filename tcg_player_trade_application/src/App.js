@@ -1,10 +1,23 @@
-import React from 'react'
+import React from 'react';
+
+import { Carousel, Navbar, Search, Footer } from './containers';
+import './App.css';
 
 
 const app = () => {
   return (
-    <div>
-        <h1>GPT-3</h1>
+    <div className='App'>
+      <div className='header'>
+        <Navbar />
+      </div>
+      <div className='content'>
+        <Search />
+        <Carousel />
+        <Carousel />
+      </div>
+      <div className='footer'>
+        <Footer />
+      </div>
     </div>
   )
 }
