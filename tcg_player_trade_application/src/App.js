@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Carousel, Navbar, Search, Footer } from './containers';
+import { Carousel, Navbar, Search, Footer, FeaturedCardCarousel, CategoryCarousel } from './containers';
 import './App.css';
 
 
@@ -12,8 +12,8 @@ const app = () => {
       </div>
       <div className='content'>
         <Search />
-        <Carousel />
-        <Carousel />
+        <FeaturedCardCarousel />
+        <CategoryCarousel />
       </div>
       <div className='footer'>
         <Footer />
