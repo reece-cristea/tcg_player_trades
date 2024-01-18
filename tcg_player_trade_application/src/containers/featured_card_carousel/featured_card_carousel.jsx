@@ -3,6 +3,17 @@ import Axios from "axios";
 import './featured_card_carousel.css';
 import { FeaturedCard } from '../../components';
 
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
+
 const Featured_card_carousel = () => {
   const [featuredCards, setFeaturedCards] = useState([]);
 
@@ -22,10 +33,27 @@ const Featured_card_carousel = () => {
     <div className='carousel-container'>
       <div className="carousel-content">
         <div className="card-wrapper">
+        <Swiper
+          // install Swiper modules
+          modules={[Navigation, Pagination, Scrollbar, A11y]}
+          spaceBetween={0}
+          slidesPerView={3}
+          loop={true}
+          initialSlide={0}
+          centeredSlides={true}
+          centeredSlidesBounds={true}
+          navigation
+          pagination={{ clickable: true }}
+          scrollbar={{ draggable: true }}
+          onSwiper={(swiper) => console.log(swiper)}
+          onSlideChange={() => console.log('slide change')}
+          className='swiper'
+        >
           {featuredCards.map(featuredCard=>(
-          <div key={featuredCard.card_id}>
+          <SwiperSlide key={featuredCard.card_id} style={{display: "flex", justifyContent: "center"}}>
             <FeaturedCard cardData={featuredCard}/>
-          </div>))}
+          </SwiperSlide>))}
+        </Swiper>
         </div>
       </div>
     </div>

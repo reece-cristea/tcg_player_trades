@@ -1,0 +1,41 @@
+.card-image {
+    position: relative;
+    height: 300px;
+    width: 215px;
+    padding: 5px;
+}
+
+.card-image .card-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card{
+    border: 2px solid rgba(0,0,0,0.7);
+    border-radius: 10px;
+    width:fit-content;
+    height: fit-content;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    margin-top: 1.5rem;
+}
+
+.card:hover {
+    scale: 1.1;
+}
+
+.card-content {
+    width: 215px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.card-content h3 {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

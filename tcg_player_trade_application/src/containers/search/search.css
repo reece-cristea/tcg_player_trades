@@ -5,5 +5,5 @@
 .searchBarContainer {
     display: flex;
     justify-content: center;
-    margin-top: 3rem;
+    padding-top: 3rem;
 }
