@@ -23,6 +23,13 @@ app.get('/getFeaturedCardsData', (req, res) => {
     })
 })
 
+app.get('/getCardData', (req, res) => {
+    const selectStatement = "SELECT * from card;"
+    db.query(selectStatement, (err,result) => {
+        return res.json(result);
+    })
+})
+
 app.listen(3001,() => {
     console.log("running on port 3001");
 })

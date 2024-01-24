@@ -3,7 +3,11 @@
 }
 
 .searchBarContainer {
+    width: 40%;
     display: flex;
-    justify-content: center;
+    align-items: center;
     padding-top: 3rem;
+    flex-direction: column;
+    min-width: 200px;
+    margin: auto;
 }
