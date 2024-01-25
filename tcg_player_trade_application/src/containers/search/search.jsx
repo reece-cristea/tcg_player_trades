@@ -10,7 +10,7 @@ const Search = () => {
     <div className='searchBarContainer'>
       <h1 id='searchText'>Search for a card</h1>
       <SearchBar setResults={setResults}/>
-      <SearchResults />
+      <SearchResults results={results}/>
     </div>
   )
 }
