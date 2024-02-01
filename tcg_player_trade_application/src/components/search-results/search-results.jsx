@@ -3,9 +3,6 @@ import './search-results.css'
 import SearchResult from '../search-result/search-result'
 
 const searchResults = ({results}) => {
-
-
-
   return (
     <div className='results-list'>
       {results.map((result, i)=> {

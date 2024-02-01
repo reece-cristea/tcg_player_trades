@@ -32,6 +32,9 @@ const Featured_card_carousel = () => {
   return (
     <div className='carousel-container'>
       <div className="carousel-content">
+        <div className='featured-card-title'>
+          <h1>Featured Cards</h1>
+        </div>
         <div className="card-wrapper">
         <Swiper
           // install Swiper modules

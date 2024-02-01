@@ -23,8 +23,15 @@ app.get('/getFeaturedCardsData', (req, res) => {
     })
 })
 
+app.get('/getCategoryData', (req, res) => {
+    const selectStatement = "SELECT * FROM tcg_website.categories;"
+    db.query(selectStatement, (err,result) => {
+        return res.json(result);
+    })
+})
+
 app.get('/getCardData', (req, res) => {
-    const selectStatement = "SELECT * from card;"
+    const selectStatement = "SELECT * from tcg_website.card;"
     db.query(selectStatement, (err,result) => {
         return res.json(result);
     })

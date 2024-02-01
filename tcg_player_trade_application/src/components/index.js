@@ -6,3 +6,4 @@ export { default as ProfileButton } from './profile-button/profile-button';
 export { default as SearchBar } from './search-bar/search-bar';
 export { default as SearchResults } from './search-results/search-results';
 export { default as ShoppingCart } from './shopping-cart-button/shopping-cart-button';
+export { default as CategoryCard } from './category-card/category-card';
