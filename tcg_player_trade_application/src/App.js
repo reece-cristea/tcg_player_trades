@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Carousel, Navbar, Search, Footer, FeaturedCardCarousel, CategoryCarousel } from './containers';
+import { Navbar, Search, Footer, FeaturedCardCarousel, CategoryCarousel } from './containers';
 import './App.css';
 
 

@@ -4,7 +4,7 @@ import './log-in-button.css';
 const log_in_button = () => {
   return (
     <div className='logInButton'>
-      <a href='' id='button'>
+      <a href='/login' id='button'>
         Log In
       </a>
     </div>
