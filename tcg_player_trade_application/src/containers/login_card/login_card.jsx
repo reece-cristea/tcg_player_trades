@@ -49,17 +49,18 @@ const LoginCard = ({ setLoginPage }) => {
       <div className='login-interactables'>
         <button className='login-card-button'>Login</button>
         <hr></hr>
-        <p className='sign-up-text'>Don't have an account yet? <button onClick={() => {
-          console.log(email);
-          console.log(password);
-          document.getElementById("login").classList.remove('animate__zoomIn');
-          document.getElementById("login").classList.add('animate__zoomOut');
-          console.log(document.getElementById("login").classList)
-          setTimeout(() => {
-            setLoginPage(false);
-          }, 500);
-          
-        }}>Sign Up!</button></p>
+        <p className='sign-up-text'>Don't have an account yet?
+          <button className="switch-card" onClick={() => {
+            console.log(email);
+            console.log(password);
+            document.getElementById("login").classList.remove('animate__zoomIn');
+            document.getElementById("login").classList.add('animate__zoomOut');
+            console.log(document.getElementById("login").classList)
+            setTimeout(() => {
+              setLoginPage(false);
+            }, 500);
+          }}>Sign Up!</button>
+        </p>
       </div>
 
     </div>

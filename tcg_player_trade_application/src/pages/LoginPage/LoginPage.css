@@ -17,4 +17,11 @@
         0px 0px 75px 10px rgba(4, 45, 2, 0.75),
         0px 0px 100px 10px rgba(4, 45, 2, 1);
     overflow: hidden;
+    transition: 0.5s;
+}
+
+@media (width <= 1200px) {
+    .login-card {
+        width: 60%;
+    }
 }
