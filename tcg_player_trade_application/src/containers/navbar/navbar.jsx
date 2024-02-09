@@ -1,9 +1,7 @@
 import React from 'react';
 import './navbar.css';
 import { LogInButton, LogoButton, ProfileButton, ShoppingCart } from '../../components';
-import { LoginPage } from "../../pages";
 import { Link, BrowserRouter as Router, Route } from "react-router-dom";
-import app from '../../App';
 
 const navbar = () => {
   return (

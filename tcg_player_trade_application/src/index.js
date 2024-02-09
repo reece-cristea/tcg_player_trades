@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import App from './App';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { LoginPage } from './pages';
+import { CardPage, LoginPage } from './pages';
 
 const router = createBrowserRouter([
     {
@@ -11,8 +11,12 @@ const router = createBrowserRouter([
         element: <App />,
     },
     {
-        path: "/login",
+        path: "login",
         element: <LoginPage />,
+    },
+    {
+        path: "card/:card_id/:card_name",
+        element: <CardPage />
     }
 ])
 

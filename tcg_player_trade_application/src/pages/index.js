@@ -1,1 +1,2 @@
 export {default as LoginPage} from './LoginPage/LoginPage';
+export {default as CardPage} from './CardPage/CardPage';

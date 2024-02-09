@@ -3,7 +3,7 @@ import './search-result.css'
 
 const SearchResult = ({result}) => {
   return (
-    <div className='search-result' onClick={(e) => {}}>{result.card_name}</div>
+    <a className='search-result' href={'/card/' + result.card_id +'/' + result.card_name.split(' ').join('-').split('/').join('-') }>{result.card_name}</a>
   )
 }
 

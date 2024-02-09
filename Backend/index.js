@@ -37,6 +37,14 @@ app.get('/getCardData', (req, res) => {
     })
 })
 
+app.get('/getSelectedCardData', (req, res) => {
+    cardId = req.query["cardId"];
+    const selectStatement = `select c.card_id, c.card_name, c.card_picture_url, ic.individual_card_quantity, cat.category_name, ic.individual_card_condition, ic.individual_card_price, ic.individual_card_quantity, u.uname from individual_card ic join card c on c.card_id = ic.card_id join categories cat on cat.category_id = c.category_id join user u on ic.card_owner = u.uid where ic.card_id = ${cardId};`
+    db.query(selectStatement, (err,result) => {
+        return res.json(result);
+    })
+})
+
 app.listen(3001,() => {
     console.log("running on port 3001");
 })

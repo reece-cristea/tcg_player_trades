@@ -12,7 +12,7 @@ const Search_bar = ({setResults}) => {
     try {
       const res = await Axios.get("http://localhost:3001/getCardData");
       const results = res.data.filter((card) => {
-        return value && card && card.card_name && card.card_name.includes(value);
+        return value && card && card.card_name && (card.card_name.toLowerCase().includes(value.toLowerCase()) || card.card_name.toUpperCase().includes(value.toUpperCase()));
       });
       setResults(results);
     } catch (err) {
