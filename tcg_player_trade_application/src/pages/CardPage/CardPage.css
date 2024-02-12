@@ -1,17 +1,35 @@
+.card-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #EFEFEF;
+}
+
 .card-page-container {
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    
+    width: 75%;
+    height: auto;
+}
+
+.card-page-img-container {
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-page-img {
-
+    width: 60%;
+    height: auto;
 }
 
 .card-page-content {
+    padding: 2rem;
 }
 
 h2 {

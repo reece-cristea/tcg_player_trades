@@ -45,7 +45,7 @@ const CardPage = () => {
 
     return (
 
-        <div>
+        <div className='card-page'>
             <Navbar />
             <div className='card-page-container'>
                 <div className='card-page-img-container'>

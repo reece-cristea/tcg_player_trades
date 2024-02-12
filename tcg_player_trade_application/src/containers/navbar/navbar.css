@@ -6,8 +6,11 @@
     border-style: none none solid none;
     flex-direction: row;
     width: 100%;
-}
-
-.spacer{
-    width: 45%;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height: auto;
 }

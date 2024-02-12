@@ -3,9 +3,9 @@ import './logo.css';
 
 const logo = () => {
   return (
-    <div>
+    <div className='logo-container'>
       <a href={"/"}>
-        <img src='https://tcgplayertradesimages.s3.us-west-1.amazonaws.com/Pictures/Icons/tcg-player-trades-logo.PNG' alt='Logo'/>
+        <img className="logo-img" src='https://tcgplayertradesimages.s3.us-west-1.amazonaws.com/Pictures/Icons/rptcg.png' alt='Logo'/>
       </a>
       
     </div>

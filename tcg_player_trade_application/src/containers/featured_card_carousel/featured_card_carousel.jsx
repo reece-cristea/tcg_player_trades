@@ -37,7 +37,6 @@ const Featured_card_carousel = () => {
         </div>
         <div className="card-wrapper">
         <Swiper
-          // install Swiper modules
           modules={[Navigation, Pagination, Scrollbar, A11y]}
           spaceBetween={0}
           slidesPerView={3}
@@ -47,7 +46,6 @@ const Featured_card_carousel = () => {
           centeredSlidesBounds={true}
           navigation
           pagination={{ clickable: true }}
-          scrollbar={{ draggable: true }}
           onSwiper={(swiper) => console.log(swiper)}
           onSlideChange={() => console.log('slide change')}
           className='swiper'
