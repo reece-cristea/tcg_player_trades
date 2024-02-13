@@ -12,6 +12,12 @@
     padding: 0;
 }
 
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .content {
-    background-color: #EFEFEF;
+    background-color: #efefef;
 }

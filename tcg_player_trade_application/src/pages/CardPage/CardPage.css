@@ -24,7 +24,7 @@
 }
 
 .card-page-img {
-    width: 60%;
+    width: 80%;
     height: auto;
 }
 
@@ -32,6 +32,37 @@
     padding: 2rem;
 }
 
+h1,
 h2 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+ul {
+    list-style: none;
+    display: block;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+span {
+    font-size: x-large;
+}
+
+.detail {
+    display: block;
+}
+
+.card-page-title {
+    margin-bottom: 2rem;
+}
+
+.card-page-details {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
 }

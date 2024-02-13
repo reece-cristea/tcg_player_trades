@@ -1,7 +1,7 @@
 import React from 'react'
 import { LogInButton,  ProfileButton, ShoppingCart } from '../../components';
 import { Link, BrowserRouter as Router, Route } from "react-router-dom";
-import './navbar-buttons.css'
+import './navbar_buttons.css'
 
 const navbarButtons = () => {
     return (

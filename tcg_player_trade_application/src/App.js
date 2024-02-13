@@ -11,7 +11,9 @@ const app = () => {
         <Navbar />
       </div>
       <div className='content'>
-        <Search />
+        <div className='search-container'>
+          <Search />
+        </div>
         <FeaturedCardCarousel />
       </div>
       <div className='footer'>

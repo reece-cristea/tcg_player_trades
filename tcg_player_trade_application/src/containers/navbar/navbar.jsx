@@ -1,6 +1,6 @@
 import React from 'react';
 import './navbar.css';
-import NavbarButtons from '../navbar-buttons/navbar-buttons';
+import NavbarButtons from '../navbar_buttons/navbar_buttons';
 import {LogoButton} from '../../components';
 import { Link, BrowserRouter as Router, Route } from "react-router-dom";
 

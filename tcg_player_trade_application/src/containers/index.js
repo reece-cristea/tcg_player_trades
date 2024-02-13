@@ -7,3 +7,4 @@ export { default as Search } from './search/search';
 export { default as CategoryCarousel } from './category_carousel/category_carousel';
 export { default as LoginCard } from './login_card/login_card';
 export { default as SignUpCard } from './signup_card/signup_card';
+export { default as AddToCart } from './add_to_cart/add_to_cart';
