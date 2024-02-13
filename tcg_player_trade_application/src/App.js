@@ -13,7 +13,6 @@ const app = () => {
       <div className='content'>
         <Search />
         <FeaturedCardCarousel />
-        <CategoryCarousel />
       </div>
       <div className='footer'>
         <Footer />

@@ -53,7 +53,6 @@ const CardPage = () => {
                 </div>
                 <div className='card-page-content'>
                     <h2>Card Name: {cardDisplayData.card_name}</h2>
-                    <h2>Category: {cardDisplayData.category_name}</h2>
                     <h2>Card Condition: {cardDisplayData.individual_card_condition}</h2>
                     <h2>Card Price: {cardDisplayData.individual_card_price}</h2>
                     <h2>Quantity: {cardDisplayData.individual_card_quantity}</h2>
