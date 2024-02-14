@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import './CardPage.css'
+import './CardPage.css';
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { AddToCart, Navbar, Search } from '../../containers';
+import { SellerCard } from '../../components';
 
 const CardPage = () => {
     const cardParam = useParams();
     const [cardData, setCardData] = useState([]);
     const [cardDisplayData, setCardDisplayData] = useState({});
-    const [cardDetails, setCardDetails] = useState("");
 
     useEffect(() => {
         const fetchCard = async (card_id) => {
@@ -19,8 +19,6 @@ const CardPage = () => {
                         cardId: card_id
                     }
                 });
-                
-                console.log(res.data[0].card_text + " " + res.data[0].card_attack1 + " " + res.data[0].card_attack2); 
                 setCardData(res.data);
                 setCardDisplayData(res.data[0]);
             } catch (err) {
@@ -50,15 +48,22 @@ const CardPage = () => {
                             <li><div className='detail'><h2 className='detail-title'>Card Text:</h2><span>{cardDisplayData.card_text}</span></div></li>
                             <li><div className='detail'><h2 className='detail-title'>Attack 1:</h2><span>{cardDisplayData.card_attack1}</span></div></li>
                             <li><div className='detail'><h2 className='detail-title'>Attack 2:</h2><span>{cardDisplayData.card_attack2}</span></div></li>
-                            <li><div className='detail'><h2 className='detail-title'>Card Illustrator:</h2><span>{cardDisplayData.card_illustrator}</span></div></li>   
+                            <li><div className='detail'><h2 className='detail-title'>Card Illustrator:</h2><span>{cardDisplayData.card_illustrator}</span></div></li>
                         </ul>
                         <div className='add-to-cart-container'>
                             <AddToCart />
                         </div>
                     </div>
-
                 </div>
             </div>
+            <div className='seller-section'>
+                <h2>Sellers</h2>
+                <hr></hr>
+                {cardData.map((card) => {
+                    return <SellerCard card={card} />
+                })}
+            </div>
+
         </div>
     );
 }
