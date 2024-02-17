@@ -39,7 +39,7 @@ app.get('/getCardData', (req, res) => {
 
 app.get('/getSelectedCardData', (req, res) => {
     cardId = req.query["cardId"];
-    const selectStatement = `select c.card_id, c.card_name, c.card_picture_url, c.card_text, c.card_attack1, c.card_attack2, c.card_illustrator, c.card_hp, c.card_type, ic.individual_card_quantity, ic.individual_card_condition, ic.individual_card_price, ic.individual_card_quantity, u.uname from individual_card ic join card c on c.card_id = ic.card_id join user u on ic.card_owner = u.uid where ic.card_id = ${cardId};`
+    const selectStatement = `SELECT c.card_id, c.card_name, c.card_picture_url, c.card_text, c.card_attack1, c.card_attack2, c.card_illustrator, c.card_hp, c.card_type, ic.individual_card_quantity, ic.individual_card_condition, ic.individual_card_price, ic.individual_card_quantity, u.uname FROM individual_card ic JOIN card c ON c.card_id = ic.card_id JOIN user u ON ic.card_owner = u.uid WHERE ic.card_id = ${cardId} ORDER BY ic.individual_card_price ASC;`
     db.query(selectStatement, (err,result) => {
         return res.json(result);
     })

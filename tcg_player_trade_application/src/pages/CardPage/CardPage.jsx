@@ -50,9 +50,7 @@ const CardPage = () => {
                             <li><div className='detail'><h2 className='detail-title'>Attack 2:</h2><span>{cardDisplayData.card_attack2}</span></div></li>
                             <li><div className='detail'><h2 className='detail-title'>Card Illustrator:</h2><span>{cardDisplayData.card_illustrator}</span></div></li>
                         </ul>
-                        <div className='add-to-cart-container'>
-                            <AddToCart />
-                        </div>
+                        <AddToCart card={cardDisplayData}/>
                     </div>
                 </div>
             </div>

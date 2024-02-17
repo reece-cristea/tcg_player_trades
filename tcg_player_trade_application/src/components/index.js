@@ -8,3 +8,4 @@ export { default as SearchResults } from './search-results/search-results';
 export { default as ShoppingCart } from './shopping-cart-button/shopping-cart-button';
 export { default as CategoryCard } from './category-card/category-card';
 export { default as SellerCard } from './seller-card/seller-card';
+export { default as AddToCartQuantity } from './add-to-cart-quantity/add-to-cart-quantity'
