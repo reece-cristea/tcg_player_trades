@@ -41,7 +41,7 @@ const Featured_card_carousel = () => {
           spaceBetween={0}
           slidesPerView={3}
           loop={true}
-          initialSlide={0}
+          initialSlide={1}
           centeredSlides={true}
           centeredSlidesBounds={true}
           navigation
