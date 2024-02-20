@@ -8,3 +8,4 @@ export { default as CategoryCarousel } from './category_carousel/category_carous
 export { default as LoginCard } from './login_card/login_card';
 export { default as SignUpCard } from './signup_card/signup_card';
 export { default as AddToCart } from './add_to_cart/add_to_cart';
+export { default as ShoppingCartSellerCard } from './shopping_cart_seller_card/shopping_cart_seller_card';
