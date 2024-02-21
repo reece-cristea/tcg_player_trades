@@ -76,7 +76,7 @@ const ShoppingCartPage = () => {
               if (card.uname === seller.uname) {
                 return card;
               }
-            })} key={i}/>
+            })} key={i} packageNum={i} length={diffSellers.length}/>
           })}
         </div>
         <div className='checkout-container'>
