@@ -9,3 +9,4 @@ export { default as ShoppingCart } from './shopping-cart-button/shopping-cart-bu
 export { default as CategoryCard } from './category-card/category-card';
 export { default as SellerCard } from './seller-card/seller-card';
 export { default as AddToCartQuantity } from './add-to-cart-quantity/add-to-cart-quantity'
+export { default as ShoppingCartCardInfo } from './shopping-cart-card-info/shopping-cart-card-info'

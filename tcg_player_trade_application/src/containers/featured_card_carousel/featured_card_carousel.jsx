@@ -41,13 +41,11 @@ const Featured_card_carousel = () => {
           spaceBetween={0}
           slidesPerView={3}
           loop={true}
-          initialSlide={1}
+          initialSlide={0}
           centeredSlides={true}
           centeredSlidesBounds={true}
           navigation
           pagination={{ clickable: true }}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log('slide change')}
           className='swiper'
         >
           {featuredCards.map(featuredCard=>(

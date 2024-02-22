@@ -1,0 +1,13 @@
+.shopping-cart-card-info-container {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 0px;
+    margin: 1rem;
+}
+
+.shopping-cart-card-img {
+    width: 70%;
+    height: auto;
+}

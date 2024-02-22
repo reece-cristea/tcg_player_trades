@@ -11,6 +11,9 @@
 .seller-card-header {
     border-bottom: 2px solid #042d02;
     padding: 1rem;
+    background-color: #042d02;
+    color: white;
+    font-size: x-large;
 }
 
 .shopping-cart-seller-card-content {
