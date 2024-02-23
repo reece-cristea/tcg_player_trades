@@ -18,4 +18,20 @@
 
 .shopping-cart-seller-card-content {
     padding: 1rem;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 0px;
+}
+
+.seller-name {
+    padding-top: 1rem;
+    padding-left: 2rem;
+}
+
+.seller-card-shipping-options {
+    padding: 1rem;
+    background-color: #efefef;
+    border-radius: 10px;
 }

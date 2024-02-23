@@ -5,7 +5,8 @@ const ShoppingCartCardInfo = ({card}) => {
   return (
     <div className='shopping-cart-card-info-container'>
         <img className='shopping-cart-card-img' src={card.card_picture_url}/>
-        <div className=''>{card.card_name}</div>
+        <h3 className=''>{card.card_name}</h3>
+        <div>{card.individual_card_condition}</div>
     </div>
   )
 }
