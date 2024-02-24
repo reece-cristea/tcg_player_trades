@@ -22,3 +22,13 @@
 .content {
     background-color: #efefef;
 }
+
+.left-align {
+    text-align: left;
+    height: fit-content;
+}
+
+.right-align {
+    text-align: right;
+    height: fit-content;
+}

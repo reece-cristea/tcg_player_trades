@@ -14,12 +14,14 @@
     background-color: #042d02;
     color: white;
     font-size: x-large;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .shopping-cart-seller-card-content {
     padding: 1rem;
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
     grid-column-gap: 10px;
     grid-row-gap: 0px;
@@ -34,4 +36,33 @@
     padding: 1rem;
     background-color: #efefef;
     border-radius: 10px;
+    height: fit-content;
+}
+
+.seller-card-cost-info {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 2fr repeat(3, 0.5fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height: fit-content;
+}
+
+.shipping-option {
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 1rem;
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.shipping-option-label {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    width: 100%;
+    padding: 1rem;
 }

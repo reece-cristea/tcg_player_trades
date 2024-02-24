@@ -69,6 +69,7 @@ const ShoppingCartPage = () => {
   return (
     <div className='shopping-cart-page-content'>
       <Navbar />
+      <h1 className='shopping-cart-title'>Your Shopping Cart</h1>
       <div className='shopping-cart-page-container'>
         <div className='cart-preview-container'>
           {diffSellers.map((seller, i) => {
@@ -80,7 +81,7 @@ const ShoppingCartPage = () => {
           })}
         </div>
         <div className='checkout-container'>
-
+          
         </div>
       </div>
     </div>

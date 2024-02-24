@@ -28,7 +28,7 @@ const Search_bar = ({setResults}) => {
   return (
     <div className='input-wrapper'>
       <FaSearch id="searchIcon" />
-      <input placeholder='Type to search...' value={input} onChange={(e) => handleChange(e.target.value)}></input>
+      <input className="search-input" placeholder='Type to search...' value={input} onChange={(e) => handleChange(e.target.value)}></input>
     </div>
   )
 }
