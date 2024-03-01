@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import './shopping-cart-card-info.css'
 
-const ShoppingCartCardInfo = ({ card }) => {
-  const [selectedQuantity, setSelectedQuantity] = useState(1);
+const ShoppingCartCardInfo = ({ card, quantity }) => {
+  const [selectedQuantity, setSelectedQuantity] = useState(quantity);
   const quantityArray = Array(card.individual_card_quantity).fill(0);
+  console.log(card)
+  console.log(quantity)
+  console.log("-------")
 
   return (
     <div className='shopping-cart-card-info-container'>
@@ -17,7 +20,11 @@ const ShoppingCartCardInfo = ({ card }) => {
               console.log(e.target.value)
             })}>
               {quantityArray.map((_, i) => {
-                return <option className="select-option" value={i + 1}>{i + 1}</option>
+                if (i + 1 === quantity[0].cart_item_quantity) {
+                  return <option className="select-option" value={i + 1} key={i} selected>{i + 1}</option>
+                } else {
+                  return <option className="select-option" value={i + 1} key={i}>{i + 1}</option>
+                }
               })}
             </select>
             <div className='shopping-cart-card-total-quantity'>

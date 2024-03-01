@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './shopping_cart_seller_card.css';
 import { ShoppingCartCardInfo } from '../../components';
 
-const ShoppingCartSellerCard = ({ uname, items, packageNum, length }) => {
+const ShoppingCartSellerCard = ({ uname, currUserCart, items, packageNum, length }) => {
 
   const [shippingCost, setShippingCost] = useState(0.99);
 
@@ -14,9 +14,9 @@ const ShoppingCartSellerCard = ({ uname, items, packageNum, length }) => {
         <section className='shopping-cart-seller-cards'>
           {items.map((card, i) => {
             if (i === 0) {
-              return <ShoppingCartCardInfo card={card} />;
+              return <ShoppingCartCardInfo card={card} quantity={currUserCart.filter(cartItem => {if(cartItem.individual_card_id === card.individual_card_id){ return cartItem.cart_item_quantity}})} key={i}/>;
             } else {
-              return <div><hr></hr><ShoppingCartCardInfo card={card} /></div>;
+              return <div><hr></hr><ShoppingCartCardInfo card={card} quantity={currUserCart.filter(cartItem => {if(cartItem.individual_card_id === card.individual_card_id){ return cartItem.cart_item_quantity}})} key={i}/></div>;
             }
 
           })}
@@ -42,11 +42,11 @@ const ShoppingCartSellerCard = ({ uname, items, packageNum, length }) => {
             <form>
               <div className='shipping-option'>
                 <input type="radio" id={"standard" + uname} name={"standard" + uname} onClick={(e) => {setShippingCost(e.target.value)}} value={0.99} defaultChecked/>
-                <label className='shipping-option-label' for={"standard" + uname}><p className='left-align'>Standard</p><p className='right-align'>$0.99</p></label>
+                <label className='shipping-option-label' htmlFor={"standard" + uname}><p className='left-align'>Standard</p><p className='right-align'>$0.99</p></label>
               </div>
               <div className='shipping-option'>
                 <input type="radio" id={"express" + uname} name={"standard" + uname} onClick={(e) => {setShippingCost(e.target.value)}} value={1.99}/>
-                <label className='shipping-option-label' for={"express" + uname}><p className='left-align'>Express</p><p className='right-align'>$1.99</p></label>
+                <label className='shipping-option-label' htmlFor={"express" + uname}><p className='left-align'>Express</p><p className='right-align'>$1.99</p></label>
               </div>
             </form>
 

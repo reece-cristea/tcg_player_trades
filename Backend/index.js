@@ -47,7 +47,7 @@ app.get('/getSelectedCardData', (req, res) => {
 
 app.get('/getCardsInCart', (req, res) => {
     cartArray = req.query["cards"];
-    const selectStatement = `SELECT c.card_name, c.card_picture_url, ic.individual_card_quantity, ic.individual_card_condition, ic.individual_card_price, u.uname FROM individual_card ic JOIN card c ON c.card_id = ic.card_id JOIN user u ON ic.card_owner = u.uid WHERE ${cartArray.map((cart_item, i) => {
+    const selectStatement = `SELECT c.card_name, c.card_picture_url, ic.individual_card_quantity, ic.individual_card_condition, ic.individual_card_price, ic.individual_card_id, u.uname FROM individual_card ic JOIN card c ON c.card_id = ic.card_id JOIN user u ON ic.card_owner = u.uid WHERE ${cartArray.map((cart_item, i) => {
         if (i !== cartArray.length - 1) {
             return `ic.individual_card_id = ${cart_item.individual_card_id} or `
         } else {
@@ -59,15 +59,9 @@ app.get('/getCardsInCart', (req, res) => {
     })
 })
 
-app.get('/getCardsInCart', (req, res) => {
-    cartArray = req.query["cards"];
-    const selectStatement = `SELECT c.card_name, c.card_picture_url, ic.individual_card_quantity, ic.individual_card_condition, ic.individual_card_price, u.uname FROM individual_card ic JOIN card c ON c.card_id = ic.card_id JOIN user u ON ic.card_owner = u.uid WHERE ${cartArray.map((cart_item, i) => {
-        if (i !== cartArray.length - 1) {
-            return `ic.individual_card_id = ${cart_item.individual_card_id} or `
-        } else {
-            return `ic.individual_card_id = ${cart_item.individual_card_id}`
-        }
-    }).join('')} ORDER BY ic.individual_card_price ASC;`
+app.get('/getCurrUserCart', (req, res) => {
+    currUserId = req.query["currUser"];
+    const selectStatement = `SELECT sc.cart_id, sc.cart_uid, sci.cart_item_id, sci.cart_item_quantity, sci.individual_card_id FROM shopping_cart sc join shopping_cart_item sci on sc.cart_id = sci.cart_id where sc.cart_uid = ${currUserId};`
     db.query(selectStatement, (err,result) => {
         return res.json(result);
     })
