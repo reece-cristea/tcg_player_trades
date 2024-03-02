@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import './shopping-cart-card-info.css'
 
-const ShoppingCartCardInfo = ({ card, quantity }) => {
-  const [selectedQuantity, setSelectedQuantity] = useState(quantity);
+const ShoppingCartCardInfo = ({ card, currUserCart }) => {
+  const [selectedQuantity, setSelectedQuantity] = useState(currUserCart.filter(item => {
+    if (item.individual_card_id === card.individual_card_id) {
+      return item
+    }
+  })[0].cart_item_quantity);
   const quantityArray = Array(card.individual_card_quantity).fill(0);
-  console.log(card)
-  console.log(quantity)
-  console.log("-------")
+  console.log(selectedQuantity)
 
   return (
     <div className='shopping-cart-card-info-container'>
@@ -17,10 +19,10 @@ const ShoppingCartCardInfo = ({ card, quantity }) => {
           <div className='shopping-cart-card-quantity'>
             <select className='shopping-cart-card-quantity-selector' onChange={((e) => {
               setSelectedQuantity(e.target.value);
-              console.log(e.target.value)
+              currUserCart.find(item => item.individual_card_id === card.individual_card_id).cart_item_quantity = e.target.value;
             })}>
               {quantityArray.map((_, i) => {
-                if (i + 1 === quantity[0].cart_item_quantity) {
+                if (i + 1 === selectedQuantity) {
                   return <option className="select-option" value={i + 1} key={i} selected>{i + 1}</option>
                 } else {
                   return <option className="select-option" value={i + 1} key={i}>{i + 1}</option>

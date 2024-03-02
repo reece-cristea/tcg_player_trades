@@ -14,9 +14,9 @@ const ShoppingCartSellerCard = ({ uname, currUserCart, items, packageNum, length
         <section className='shopping-cart-seller-cards'>
           {items.map((card, i) => {
             if (i === 0) {
-              return <ShoppingCartCardInfo card={card} quantity={currUserCart.filter(cartItem => {if(cartItem.individual_card_id === card.individual_card_id){ return cartItem.cart_item_quantity}})} key={i}/>;
+              return <ShoppingCartCardInfo card={card} currUserCart={currUserCart} key={i}/>;
             } else {
-              return <div><hr></hr><ShoppingCartCardInfo card={card} quantity={currUserCart.filter(cartItem => {if(cartItem.individual_card_id === card.individual_card_id){ return cartItem.cart_item_quantity}})} key={i}/></div>;
+              return <div><hr></hr><ShoppingCartCardInfo card={card} currUserCart={currUserCart} key={i}/></div>;
             }
 
           })}
@@ -25,14 +25,19 @@ const ShoppingCartSellerCard = ({ uname, currUserCart, items, packageNum, length
           <div className='seller-card-cost-info'>
             <h3 className='left-align'>Package Subtotal:</h3>
             <h3 className='right-align'>${(items.reduce(function (acc, curr) {
-              return acc + curr.individual_card_price
+              const quantity = currUserCart.filter(item => {
+                if (item.individual_card_id === curr.individual_card_id) {
+                  return item
+                }
+              })
+              return acc + (curr.individual_card_price * quantity[0].cart_item_quantity)
             }, 0
             ) + Number(shippingCost)).toFixed(2)}</h3>
             <p className='left-align'>Items:</p>
             <p className='right-align'>{items.length}</p>
             <p className='left-align'>Item Total:</p>
             <p className='right-align'>${items.reduce(function (acc, curr) {
-              return acc + curr.individual_card_price
+              return acc + curr.individual_card_price 
             }, 0
             ).toFixed(2)}</p>
             <p className='left-align'>Shipping:</p>
