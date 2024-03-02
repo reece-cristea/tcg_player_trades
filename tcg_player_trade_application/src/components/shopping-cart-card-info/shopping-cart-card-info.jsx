@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import './shopping-cart-card-info.css'
 
-const ShoppingCartCardInfo = ({ card, currUserCart }) => {
+const ShoppingCartCardInfo = ({ card, currUserCart, setCurrUserCart }) => {
   const [selectedQuantity, setSelectedQuantity] = useState(currUserCart.filter(item => {
     if (item.individual_card_id === card.individual_card_id) {
       return item
     }
   })[0].cart_item_quantity);
   const quantityArray = Array(card.individual_card_quantity).fill(0);
-  console.log(selectedQuantity)
 
   return (
     <div className='shopping-cart-card-info-container'>
@@ -19,7 +18,8 @@ const ShoppingCartCardInfo = ({ card, currUserCart }) => {
           <div className='shopping-cart-card-quantity'>
             <select className='shopping-cart-card-quantity-selector' onChange={((e) => {
               setSelectedQuantity(e.target.value);
-              currUserCart.find(item => item.individual_card_id === card.individual_card_id).cart_item_quantity = e.target.value;
+              currUserCart.find(item => item.individual_card_id === card.individual_card_id).cart_item_quantity = Number(e.target.value);
+              setCurrUserCart(currUserCart);
             })}>
               {quantityArray.map((_, i) => {
                 if (i + 1 === selectedQuantity) {

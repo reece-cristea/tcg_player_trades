@@ -2,9 +2,26 @@ import React, { useState } from 'react';
 import './shopping_cart_seller_card.css';
 import { ShoppingCartCardInfo } from '../../components';
 
-const ShoppingCartSellerCard = ({ uname, currUserCart, items, packageNum, length }) => {
+const ShoppingCartSellerCard = ({ uname, currUserCart, setCurrUserCart, packageNum, length, setCartItemTotal }) => {
 
   const [shippingCost, setShippingCost] = useState(0.99);
+  const [cartItems, setCartItems] = useState(currUserCart.filter(card => {
+    if (card.uname === uname) {
+      return card;
+    }
+  }))
+
+  const updateCurrUserCart = currUserCart => {
+    setCurrUserCart(currUserCart);
+    setCartItems(currUserCart.filter(card => {
+      if (card.uname === uname) {
+        return card;
+      }
+    }));
+    setCartItemTotal(currUserCart.reduce((acc, curr) => {
+      return acc + (curr.individual_card_price * curr.cart_item_quantity)
+    }, 0))
+  }
 
   return (
     <div className='shopping-cart-seller-card-container'>
@@ -12,32 +29,26 @@ const ShoppingCartSellerCard = ({ uname, currUserCart, items, packageNum, length
       <h2 className='seller-name'>Seller: {uname}</h2>
       <div className='shopping-cart-seller-card-content'>
         <section className='shopping-cart-seller-cards'>
-          {items.map((card, i) => {
+          {cartItems.map((card, i) => {
             if (i === 0) {
-              return <ShoppingCartCardInfo card={card} currUserCart={currUserCart} key={i}/>;
+              return <ShoppingCartCardInfo card={card} currUserCart={currUserCart} setCurrUserCart={updateCurrUserCart} key={i}/>;
             } else {
-              return <div><hr></hr><ShoppingCartCardInfo card={card} currUserCart={currUserCart} key={i}/></div>;
+              return <div><hr></hr><ShoppingCartCardInfo card={card} currUserCart={currUserCart} setCurrUserCart={updateCurrUserCart} key={i}/></div>;
             }
-
           })}
         </section>
         <div className='seller-card-shipping-options'>
           <div className='seller-card-cost-info'>
             <h3 className='left-align'>Package Subtotal:</h3>
-            <h3 className='right-align'>${(items.reduce(function (acc, curr) {
-              const quantity = currUserCart.filter(item => {
-                if (item.individual_card_id === curr.individual_card_id) {
-                  return item
-                }
-              })
-              return acc + (curr.individual_card_price * quantity[0].cart_item_quantity)
+            <h3 className='right-align'>${(cartItems.reduce(function (acc, curr) {
+              return acc + (curr.individual_card_price * currUserCart.find(item => item.individual_card_id === curr.individual_card_id).cart_item_quantity)
             }, 0
             ) + Number(shippingCost)).toFixed(2)}</h3>
             <p className='left-align'>Items:</p>
-            <p className='right-align'>{items.length}</p>
+            <p className='right-align'>{cartItems.length}</p>
             <p className='left-align'>Item Total:</p>
-            <p className='right-align'>${items.reduce(function (acc, curr) {
-              return acc + curr.individual_card_price 
+            <p className='right-align'>${cartItems.reduce(function (acc, curr) {
+              return acc + (curr.individual_card_price * currUserCart.find(item => item.individual_card_id === curr.individual_card_id).cart_item_quantity)
             }, 0
             ).toFixed(2)}</p>
             <p className='left-align'>Shipping:</p>

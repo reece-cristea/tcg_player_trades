@@ -9,7 +9,6 @@ const ShoppingCartPage = () => {
 
   const [currUserCart, setCurrUserCart] = useState([]);
   const [diffSellers, setDiffSellers] = useState([]);
-  const [cardsInCart, setCardsInCart] = useState([]);
   const [cartItemTotal, setCartItemTotal] = useState(0);
 
   useEffect(() => {
@@ -18,23 +17,10 @@ const ShoppingCartPage = () => {
       try {
         const res = await Axios.get(apiPath, {
           params: {
-            cards: cart
+            currUser: currUserId
           }
         });
         setDiffSellers(res.data);
-      } catch (err) {
-        console.log("Error: " + err);
-      }
-    }
-    const fetchCardsInCart = async (cart) => {
-      const apiPath = "http://localhost:3001/getCardsInCart";
-      try {
-        const res = await Axios.get(apiPath, {
-          params: {
-            cards: cart
-          }
-        });
-        setCardsInCart(res.data);
       } catch (err) {
         console.log("Error: " + err);
       }
@@ -48,12 +34,11 @@ const ShoppingCartPage = () => {
           }
         }).then(res => {
           setCurrUserCart(res.data);
-          fetchCardsInCart(res.data);
           getDifferentSellers(res.data);
-          setCartItemTotal(cardsInCart.reduce(function (acc, curr) {
+          console.log(currUserCart);
+          setCartItemTotal(res.data.reduce((acc, curr) => {
             return acc + (curr.individual_card_price * curr.cart_item_quantity)
-          }, 0
-          ));
+          }, 0))
         });
       } catch (err) {
         console.log("Error: " + err);
@@ -69,11 +54,7 @@ const ShoppingCartPage = () => {
       <div className='shopping-cart-page-container'>
         <div className='cart-preview-container'>
           {diffSellers.map((seller, i) => {
-            return <ShoppingCartSellerCard uname={seller.uname} currUserCart={currUserCart} items={cardsInCart.filter(card => {
-              if (card.uname === seller.uname) {
-                return card;
-              }
-            })} key={i} packageNum={i} length={diffSellers.length} />
+            return <ShoppingCartSellerCard uname={seller.uname} currUserCart={currUserCart} setCurrUserCart={setCurrUserCart} key={i} packageNum={i} length={diffSellers.length} setCartItemTotal={setCartItemTotal} />
           })}
         </div>
         <div className='checkout-container'>
@@ -82,7 +63,7 @@ const ShoppingCartPage = () => {
             <h4>Packages</h4>
             <h4 className='right-align'>{diffSellers.length}</h4>
             <h4>Items</h4>
-            <h4 className='right-align'>{cardsInCart.length}</h4>
+            <h4 className='right-align'>{currUserCart.length}</h4>
             <h4>Item Total</h4>
             <h4 className='right-align'>${cartItemTotal.toFixed(2)}</h4>
             <h4>Estimated Shipping</h4>
