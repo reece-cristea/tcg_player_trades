@@ -10,6 +10,11 @@ const ShoppingCartPage = () => {
   const [currUserCart, setCurrUserCart] = useState([]);
   const [diffSellers, setDiffSellers] = useState([]);
   const [cartItemTotal, setCartItemTotal] = useState(0);
+  const [shippingCosts, setShippingCosts] = useState(0);
+
+  function updateShippingCosts(oldCost, newCost) {
+    setShippingCosts(shippingCosts + Number(newCost - oldCost));
+  }
 
   useEffect(() => {
     const getDifferentSellers = async (cart) => {
@@ -21,6 +26,9 @@ const ShoppingCartPage = () => {
           }
         });
         setDiffSellers(res.data);
+        setShippingCosts(res.data.reduce((acc, curr) => {
+          return acc + curr.standard_shipping_cost
+        }, 0));
       } catch (err) {
         console.log("Error: " + err);
       }
@@ -38,7 +46,7 @@ const ShoppingCartPage = () => {
           console.log(currUserCart);
           setCartItemTotal(res.data.reduce((acc, curr) => {
             return acc + (curr.individual_card_price * curr.cart_item_quantity)
-          }, 0))
+          }, 0));
         });
       } catch (err) {
         console.log("Error: " + err);
@@ -54,7 +62,7 @@ const ShoppingCartPage = () => {
       <div className='shopping-cart-page-container'>
         <div className='cart-preview-container'>
           {diffSellers.map((seller, i) => {
-            return <ShoppingCartSellerCard uname={seller.uname} currUserCart={currUserCart} setCurrUserCart={setCurrUserCart} key={i} packageNum={i} length={diffSellers.length} setCartItemTotal={setCartItemTotal} />
+            return <ShoppingCartSellerCard seller={seller} currUserCart={currUserCart} setCurrUserCart={setCurrUserCart} key={i} packageNum={i} length={diffSellers.length} setCartItemTotal={setCartItemTotal} updateShipping={updateShippingCosts} />
           })}
         </div>
         <div className='checkout-container'>
@@ -67,9 +75,9 @@ const ShoppingCartPage = () => {
             <h4>Item Total</h4>
             <h4 className='right-align'>${cartItemTotal.toFixed(2)}</h4>
             <h4>Estimated Shipping</h4>
-            <h4 className='right-align'>x</h4>
+            <h4 className='right-align'>${Number(shippingCosts).toFixed(2)}</h4>
             <h4>Cart Subtotal</h4>
-            <h4 className='right-align'>x</h4>
+            <h4 className='right-align'>${(Number(cartItemTotal) + Number(shippingCosts)).toFixed(2)}</h4>
           </div>
         </div>
       </div>

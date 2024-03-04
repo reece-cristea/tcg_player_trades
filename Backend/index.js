@@ -45,20 +45,6 @@ app.get('/getSelectedCardData', (req, res) => {
     })
 })
 
-app.get('/getCardsInCart', (req, res) => {
-    cartArray = req.query["cards"];
-    const selectStatement = `SELECT c.card_name, c.card_picture_url, ic.individual_card_quantity, ic.individual_card_condition, ic.individual_card_price, ic.individual_card_id, u.uname FROM individual_card ic JOIN card c ON c.card_id = ic.card_id JOIN user u ON ic.card_owner = u.uid WHERE ${cartArray.map((cart_item, i) => {
-        if (i !== cartArray.length - 1) {
-            return `ic.individual_card_id = ${cart_item.individual_card_id} or `
-        } else {
-            return `ic.individual_card_id = ${cart_item.individual_card_id}`
-        }
-    }).join('')} ORDER BY ic.individual_card_price ASC;`
-    db.query(selectStatement, (err,result) => {
-        return res.json(result);
-    })
-})
-
 app.get('/getCurrUserCart', (req, res) => {
     currUserId = req.query["currUser"];
     const selectStatement = `select t1.cart_id, t1.cart_uid, t1.cart_item_id, t1.cart_item_quantity, t1.individual_card_id, t2.card_name, t2.card_picture_url, t2.individual_card_quantity, t2.individual_card_condition, t2.individual_card_price, t2.uname from (SELECT sc.cart_id, sc.cart_uid, sci.cart_item_id, sci.cart_item_quantity, sci.individual_card_id FROM shopping_cart sc join shopping_cart_item sci on sc.cart_id = sci.cart_id where sc.cart_uid = 1) as t1 join (SELECT c.card_name, c.card_picture_url, ic.individual_card_quantity, ic.individual_card_condition, ic.individual_card_price, ic.individual_card_id, u.uname FROM individual_card ic JOIN card c ON c.card_id = ic.card_id JOIN user u ON ic.card_owner = u.uid) as t2 on t1.individual_card_id = t2.individual_card_id where cart_uid = ${currUserId};`
@@ -69,7 +55,7 @@ app.get('/getCurrUserCart', (req, res) => {
 
 app.get('/getDiffSellers', (req, res) => {
     currUserId = req.query["currUser"];
-    const selectStatement = `select distinct uname from (select t1.cart_id, t1.cart_uid, t1.cart_item_id, t1.cart_item_quantity, t1.individual_card_id, t2.card_name, t2.card_picture_url, t2.individual_card_quantity, t2.individual_card_condition, t2.individual_card_price, t2.uname from (SELECT sc.cart_id, sc.cart_uid, sci.cart_item_id, sci.cart_item_quantity, sci.individual_card_id FROM shopping_cart sc join shopping_cart_item sci on sc.cart_id = sci.cart_id where sc.cart_uid = 1) as t1 join (SELECT c.card_name, c.card_picture_url, ic.individual_card_quantity, ic.individual_card_condition, ic.individual_card_price, ic.individual_card_id, u.uname FROM individual_card ic JOIN card c ON c.card_id = ic.card_id JOIN user u ON ic.card_owner = u.uid) as t2 on t1.individual_card_id = t2.individual_card_id where cart_uid = ${currUserId}) as t3;`
+    const selectStatement = `select distinct uname, standard_shipping_cost, express_shipping_cost from (select t1.cart_id, t1.cart_uid, t1.cart_item_id, t1.cart_item_quantity, t1.individual_card_id, t2.card_name, t2.card_picture_url, t2.individual_card_quantity, t2.individual_card_condition, t2.individual_card_price, t2.uname, t2.standard_shipping_cost, t2.express_shipping_cost from (SELECT sc.cart_id, sc.cart_uid, sci.cart_item_id, sci.cart_item_quantity, sci.individual_card_id FROM shopping_cart sc join shopping_cart_item sci on sc.cart_id = sci.cart_id where sc.cart_uid = 1) as t1 join (SELECT c.card_name, c.card_picture_url, ic.individual_card_quantity, ic.individual_card_condition, ic.individual_card_price, ic.individual_card_id, u.uname, u.standard_shipping_cost, u.express_shipping_cost FROM individual_card ic JOIN card c ON c.card_id = ic.card_id JOIN user u ON ic.card_owner = u.uid) as t2 on t1.individual_card_id = t2.individual_card_id where cart_uid = ${currUserId}) as t3;`
     db.query(selectStatement, (err,result) => {
         return res.json(result);
     })

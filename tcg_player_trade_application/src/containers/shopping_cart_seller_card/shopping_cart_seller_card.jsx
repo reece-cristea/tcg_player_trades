@@ -2,19 +2,24 @@ import React, { useState } from 'react';
 import './shopping_cart_seller_card.css';
 import { ShoppingCartCardInfo } from '../../components';
 
-const ShoppingCartSellerCard = ({ uname, currUserCart, setCurrUserCart, packageNum, length, setCartItemTotal }) => {
+const ShoppingCartSellerCard = ({ seller, currUserCart, setCurrUserCart, packageNum, length, setCartItemTotal, updateShipping }) => {
 
   const [shippingCost, setShippingCost] = useState(0.99);
   const [cartItems, setCartItems] = useState(currUserCart.filter(card => {
-    if (card.uname === uname) {
+    if (card.uname === seller.uname) {
       return card;
     }
   }))
 
+  const updateShippingCosts = cost => {
+    updateShipping(shippingCost, cost);
+    setShippingCost(cost);
+  }
+
   const updateCurrUserCart = currUserCart => {
     setCurrUserCart(currUserCart);
     setCartItems(currUserCart.filter(card => {
-      if (card.uname === uname) {
+      if (card.uname === seller.uname) {
         return card;
       }
     }));
@@ -26,7 +31,7 @@ const ShoppingCartSellerCard = ({ uname, currUserCart, setCurrUserCart, packageN
   return (
     <div className='shopping-cart-seller-card-container'>
       <div className='seller-card-header'>Package ({packageNum + 1} of {length})</div>
-      <h2 className='seller-name'>Seller: {uname}</h2>
+      <h2 className='seller-name'>Seller: {seller.uname}</h2>
       <div className='shopping-cart-seller-card-content'>
         <section className='shopping-cart-seller-cards'>
           {cartItems.map((card, i) => {
@@ -57,12 +62,12 @@ const ShoppingCartSellerCard = ({ uname, currUserCart, setCurrUserCart, packageN
           <div className='shipping-options-group'>
             <form>
               <div className='shipping-option'>
-                <input type="radio" id={"standard" + uname} name={"standard" + uname} onClick={(e) => {setShippingCost(e.target.value)}} value={0.99} defaultChecked/>
-                <label className='shipping-option-label' htmlFor={"standard" + uname}><p className='left-align'>Standard</p><p className='right-align'>$0.99</p></label>
+                <input type="radio" id={"standard" + seller.uname} name={"standard" + seller.uname} onClick={(e) => {updateShippingCosts(e.target.value)}} value={seller.standard_shipping_cost} defaultChecked/>
+                <label className='shipping-option-label' htmlFor={"standard" + seller.uname}><p className='left-align'>Standard</p><p className='right-align'>${seller.standard_shipping_cost.toFixed(2)}</p></label>
               </div>
               <div className='shipping-option'>
-                <input type="radio" id={"express" + uname} name={"standard" + uname} onClick={(e) => {setShippingCost(e.target.value)}} value={1.99}/>
-                <label className='shipping-option-label' htmlFor={"express" + uname}><p className='left-align'>Express</p><p className='right-align'>$1.99</p></label>
+                <input type="radio" id={"express" + seller.uname} name={"standard" + seller.uname} onClick={(e) => {updateShippingCosts(e.target.value)}} value={seller.express_shipping_cost}/>
+                <label className='shipping-option-label' htmlFor={"express" + seller.uname}><p className='left-align'>Express</p><p className='right-align'>${seller.express_shipping_cost.toFixed(2)}</p></label>
               </div>
             </form>
 
