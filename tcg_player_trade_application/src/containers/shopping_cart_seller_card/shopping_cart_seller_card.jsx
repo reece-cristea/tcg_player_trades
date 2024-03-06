@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './shopping_cart_seller_card.css';
 import { ShoppingCartCardInfo } from '../../components';
 
-const ShoppingCartSellerCard = ({ seller, currUserCart, setCurrUserCart, packageNum, length, setCartItemTotal, updateShipping }) => {
+const ShoppingCartSellerCard = ({ seller, currUserCart, setCurrUserCart, packageNum, length, setCartItemTotal, updateShippingCosts, diffSellers, setDiffSellers}) => {
 
   const [shippingCost, setShippingCost] = useState(0.99);
   const [cartItems, setCartItems] = useState(currUserCart.filter(card => {
@@ -11,9 +11,22 @@ const ShoppingCartSellerCard = ({ seller, currUserCart, setCurrUserCart, package
     }
   }))
 
-  const updateShippingCosts = cost => {
-    updateShipping(shippingCost, cost);
+  const setShippingCosts = cost => {
+    updateShippingCosts(shippingCost, cost);
     setShippingCost(cost);
+  }
+
+  function getUniqueSellers(seller) {
+    const uniqueValues = new Set();
+    currUserCart.forEach(item => {
+      uniqueValues.add(item[seller]);
+    });
+    const currSellers =  Array.from(uniqueValues);
+    setDiffSellers(diffSellers.filter((seller) => {
+      if (currSellers.includes(seller.uname)){
+        return seller;
+      }
+    }))
   }
 
   const updateCurrUserCart = currUserCart => {
@@ -26,6 +39,8 @@ const ShoppingCartSellerCard = ({ seller, currUserCart, setCurrUserCart, package
     setCartItemTotal(currUserCart.reduce((acc, curr) => {
       return acc + (curr.individual_card_price * curr.cart_item_quantity)
     }, 0))
+    getUniqueSellers('uname');
+    console.log(cartItems)
   }
 
   return (
@@ -62,11 +77,11 @@ const ShoppingCartSellerCard = ({ seller, currUserCart, setCurrUserCart, package
           <div className='shipping-options-group'>
             <form>
               <div className='shipping-option'>
-                <input type="radio" id={"standard" + seller.uname} name={"standard" + seller.uname} onClick={(e) => {updateShippingCosts(e.target.value)}} value={seller.standard_shipping_cost} defaultChecked/>
+                <input type="radio" id={"standard" + seller.uname} name={"standard" + seller.uname} onClick={(e) => {setShippingCosts(e.target.value)}} value={seller.standard_shipping_cost} defaultChecked/>
                 <label className='shipping-option-label' htmlFor={"standard" + seller.uname}><p className='left-align'>Standard</p><p className='right-align'>${seller.standard_shipping_cost.toFixed(2)}</p></label>
               </div>
               <div className='shipping-option'>
-                <input type="radio" id={"express" + seller.uname} name={"standard" + seller.uname} onClick={(e) => {updateShippingCosts(e.target.value)}} value={seller.express_shipping_cost}/>
+                <input type="radio" id={"express" + seller.uname} name={"standard" + seller.uname} onClick={(e) => {setShippingCosts(e.target.value)}} value={seller.express_shipping_cost}/>
                 <label className='shipping-option-label' htmlFor={"express" + seller.uname}><p className='left-align'>Express</p><p className='right-align'>${seller.express_shipping_cost.toFixed(2)}</p></label>
               </div>
             </form>

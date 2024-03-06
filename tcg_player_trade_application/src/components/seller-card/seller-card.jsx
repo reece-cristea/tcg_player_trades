@@ -7,7 +7,6 @@ const SellerCard = ({ card }) => {
     const quantityArray = Array(card.individual_card_quantity).fill(0);
 
     const [selectedQuantity, setSelectedQuantity] = useState(1);
-
     return (
         <div className='seller-card-container'>
             <div className='seller-info'>

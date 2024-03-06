@@ -8,7 +8,11 @@ const ShoppingCartCardInfo = ({ card, currUserCart, setCurrUserCart }) => {
     }
   })[0].cart_item_quantity);
   const quantityArray = Array(card.individual_card_quantity).fill(0);
-
+  const removeCardFromCart= () => {
+    const index = currUserCart.indexOf(card);
+    currUserCart.splice(index,1);
+    setCurrUserCart(currUserCart);
+  }
   return (
     <div className='shopping-cart-card-info-container'>
       <img className='shopping-cart-card-img' src={card.card_picture_url} />
@@ -33,7 +37,7 @@ const ShoppingCartCardInfo = ({ card, currUserCart, setCurrUserCart }) => {
               of {card.individual_card_quantity}
             </div>
           </div>
-          <button className='card-cart-option'>Remove</button>
+          <button className='card-cart-option' onClick={removeCardFromCart}>Remove</button>
           <button className='card-cart-option'>Save For Later</button>
         </div>
 

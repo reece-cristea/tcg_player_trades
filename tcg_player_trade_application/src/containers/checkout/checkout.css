@@ -17,3 +17,9 @@
     grid-row-gap: 0px;
     width: 100%;
 }
+
+.checkout-button {
+    margin-top: 1rem;
+    width: 100%;
+    font-size: large;
+}

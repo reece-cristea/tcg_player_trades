@@ -32,3 +32,7 @@
     text-align: right;
     height: fit-content;
 }
+
+input[type=radio] {
+    accent-color: #042d02;
+}
