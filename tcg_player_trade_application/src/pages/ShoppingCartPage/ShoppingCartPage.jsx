@@ -16,25 +16,6 @@ const ShoppingCartPage = () => {
     setShippingCosts(shippingCosts + Number(newCost - oldCost));
   }
 
-  function getUniqueSellers(seller) {
-    const uniqueValues = new Set();
-    currUserCart.forEach(item => {
-      uniqueValues.add(item[seller]);
-    });
-    setDiffSellers(Array.from(uniqueValues));
-  }
-
-  function updateDiffSellers(sellers) {
-    setDiffSellers(sellers);
-    updateShipping(sellers);
-  }
-
-  function updateShipping(sellers) {
-    setShippingCosts(sellers.reduce((acc, curr) => {
-      return acc + curr.standard_shipping_cost
-    }, 0));
-  }
-
   useEffect(() => {
     const getDifferentSellers = async (cart) => {
       const apiPath = "http://localhost:3001/getDiffSellers";
@@ -60,9 +41,8 @@ const ShoppingCartPage = () => {
             currUser: currUserId
           }
         }).then(res => {
-          setCurrUserCart(res.data);
-          getUniqueSellers('uname');
           getDifferentSellers(res.data);
+          setCurrUserCart(res.data);
           setCartItemTotal(res.data.reduce((acc, curr) => {
             return acc + (curr.individual_card_price * curr.cart_item_quantity)
           }, 0));
@@ -81,10 +61,10 @@ const ShoppingCartPage = () => {
       <div className='shopping-cart-page-container'>
         <div className='cart-preview-container'>
           {diffSellers.map((seller, i) => {
-            return <ShoppingCartSellerCard seller={seller} currUserCart={currUserCart} setCurrUserCart={setCurrUserCart} key={i} packageNum={i} length={diffSellers.length} setCartItemTotal={setCartItemTotal} updateShippingCosts={updateShippingCosts} diffSellers={diffSellers} setDiffSellers={updateDiffSellers}/>
+            return <ShoppingCartSellerCard cartItemList={currUserCart.filter(card => { if (card.uname === seller.uname) { return card; } })} seller={seller} currUserCart={currUserCart} setCurrUserCart={setCurrUserCart} key={i} packageNum={i} length={diffSellers.length} setCartItemTotal={setCartItemTotal} updateShippingCosts={updateShippingCosts} />
           })}
         </div>
-        <Checkout diffSellers={diffSellers} currUserCart={currUserCart} cartItemTotal={cartItemTotal} shippingCosts={shippingCosts}/>
+        <Checkout diffSellers={diffSellers} currUserCart={currUserCart} cartItemTotal={cartItemTotal} shippingCosts={shippingCosts} />
       </div>
     </div>
   )

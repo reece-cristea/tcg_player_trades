@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
 import './shopping-cart-card-info.css'
 
-const ShoppingCartCardInfo = ({ card, currUserCart, setCurrUserCart }) => {
+const ShoppingCartCardInfo = ({ card, currUserCart, setCurrUserCart, removeItemFromCart }) => {
+
   const [selectedQuantity, setSelectedQuantity] = useState(currUserCart.filter(item => {
     if (item.individual_card_id === card.individual_card_id) {
       return item
     }
   })[0].cart_item_quantity);
+  
   const quantityArray = Array(card.individual_card_quantity).fill(0);
-  const removeCardFromCart= () => {
-    const index = currUserCart.indexOf(card);
-    currUserCart.splice(index,1);
-    setCurrUserCart(currUserCart);
-  }
+
   return (
     <div className='shopping-cart-card-info-container'>
       <img className='shopping-cart-card-img' src={card.card_picture_url} />
@@ -37,7 +35,9 @@ const ShoppingCartCardInfo = ({ card, currUserCart, setCurrUserCart }) => {
               of {card.individual_card_quantity}
             </div>
           </div>
-          <button className='card-cart-option' onClick={removeCardFromCart}>Remove</button>
+          <button className='card-cart-option' onClick={(e) => {
+            removeItemFromCart(card);
+          }}>Remove</button>
           <button className='card-cart-option'>Save For Later</button>
         </div>
 
