@@ -7,7 +7,7 @@ const ShoppingCartSellerCard = ({ cartItemList, seller, currUserCart, setCurrUse
   const [cartItems, setCartItems] = useState(cartItemList);
 
   const setShippingCosts = cost => {
-    updateShippingCosts(shippingCost, cost);
+    updateShippingCosts(seller.uname, cost);
     setShippingCost(cost);
   }
 
