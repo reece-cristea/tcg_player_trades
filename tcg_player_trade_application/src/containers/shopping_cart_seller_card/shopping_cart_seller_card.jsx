@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import './shopping_cart_seller_card.css';
 import { ShoppingCartCardInfo } from '../../components';
 
-const ShoppingCartSellerCard = ({ cartItemList, seller, currUserCart, setCurrUserCart, packageNum, length, setCartItemTotal, updateShippingCosts, updateSellers }) => {
-
+const ShoppingCartSellerCard = ({ cartItemList, seller, currUserCart, setCurrUserCart, packageNum, length, setCartItemTotal, updateShippingCosts }) => {
   const [shippingCost, setShippingCost] = useState(seller.standard_shipping_cost);
   const [cartItems, setCartItems] = useState(cartItemList);
 
@@ -13,16 +12,15 @@ const ShoppingCartSellerCard = ({ cartItemList, seller, currUserCart, setCurrUse
   }
 
   const removeItemFromCart = (card) => {
+    const cucIndex = currUserCart.indexOf(card);
+    const cucItems = [...currUserCart];
+    cucItems.splice(cucIndex, 1);
+    updateCurrUserCart(cucItems);
 
     const ciIndex = cartItems.indexOf(card);
     const ciItems = [...cartItems];
     ciItems.splice(ciIndex, 1);
     setCartItems(ciItems);
-
-    const cucIndex = currUserCart.indexOf(card);
-    const cucItems = [...currUserCart];
-    cucItems.splice(cucIndex, 1);
-    updateCurrUserCart(cucItems);
   }
 
   const updateCurrUserCart = currUserCart => {
@@ -35,8 +33,7 @@ const ShoppingCartSellerCard = ({ cartItemList, seller, currUserCart, setCurrUse
   if (cartItems.length > 0) {
     return (
       <div className='shopping-cart-seller-card-container'>
-        <div className='seller-card-header'>Package ({packageNum + 1} of {length})</div>
-        <h2 className='seller-name'>Seller: {seller.uname}</h2>
+        <div className='seller-card-header'>Package from {seller.uname}</div>
         <div className='shopping-cart-seller-card-content'>
           <section className='shopping-cart-seller-cards'>
             {cartItems.map((card, i) => {
@@ -83,11 +80,11 @@ const ShoppingCartSellerCard = ({ cartItemList, seller, currUserCart, setCurrUse
         </div>
 
       </div>
-
     )
   } else {
-    return(<></>);
+    return (<></>);
   }
+
 
 }
 

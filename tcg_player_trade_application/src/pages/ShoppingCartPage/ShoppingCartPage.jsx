@@ -11,10 +11,32 @@ const ShoppingCartPage = () => {
   const [diffSellers, setDiffSellers] = useState([]);
   const [cartItemTotal, setCartItemTotal] = useState(0);
   const [shippingCosts, setShippingCosts] = useState(0);
+  const [numPackages, setNumPackages] = useState(0);
 
   function updateShippingCosts(oldCost, newCost) {
     setShippingCosts(shippingCosts + Number(newCost - oldCost));
   }
+
+  const upadteShipping = () => {
+    const uniqueValues = new Set();
+    currUserCart.forEach(item => {
+      uniqueValues.add(item['uname']);
+    });
+    const uniqueSellers = Array.from(uniqueValues);
+    const sellersShipping = diffSellers.filter(seller => {
+      if (uniqueSellers.includes(seller.uname)) {
+        return seller;
+      }
+    })
+    setNumPackages(sellersShipping.length);
+    setShippingCosts(sellersShipping.reduce((acc, curr) => {
+      return acc + curr.standard_shipping_cost
+    }, 0));
+  }
+
+  useEffect(() => {
+    upadteShipping();
+  }, [currUserCart])
 
   useEffect(() => {
     const getDifferentSellers = async (cart) => {
@@ -26,6 +48,7 @@ const ShoppingCartPage = () => {
           }
         });
         setDiffSellers(res.data);
+        setNumPackages(res.data.length);
         setShippingCosts(res.data.reduce((acc, curr) => {
           return acc + curr.standard_shipping_cost
         }, 0));
@@ -61,10 +84,14 @@ const ShoppingCartPage = () => {
       <div className='shopping-cart-page-container'>
         <div className='cart-preview-container'>
           {diffSellers.map((seller, i) => {
-            return <ShoppingCartSellerCard cartItemList={currUserCart.filter(card => { if (card.uname === seller.uname) { return card; } })} seller={seller} currUserCart={currUserCart} setCurrUserCart={setCurrUserCart} key={i} packageNum={i} length={diffSellers.length} setCartItemTotal={setCartItemTotal} updateShippingCosts={updateShippingCosts} />
+            return <ShoppingCartSellerCard cartItemList={currUserCart.filter(card => {
+              if (card.uname === seller.uname) {
+                 return card; 
+                } 
+              })} seller={seller} currUserCart={currUserCart} setCurrUserCart={setCurrUserCart} key={i} packageNum={i} length={diffSellers.length} setCartItemTotal={setCartItemTotal} updateShippingCosts={updateShippingCosts} />
           })}
         </div>
-        <Checkout diffSellers={diffSellers} currUserCart={currUserCart} cartItemTotal={cartItemTotal} shippingCosts={shippingCosts} />
+        <Checkout numPackages={numPackages} currUserCart={currUserCart} cartItemTotal={cartItemTotal} shippingCosts={shippingCosts} />
       </div>
     </div>
   )

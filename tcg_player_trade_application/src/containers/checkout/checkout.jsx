@@ -1,7 +1,7 @@
 import React from 'react'
 import './checkout.css'
 
-const checkout = ({diffSellers, currUserCart, cartItemTotal, shippingCosts}) => {
+const checkout = ({numPackages, currUserCart, cartItemTotal, shippingCosts}) => {
 
   const taxTotal = (Number(cartItemTotal) + Number(shippingCosts)) * 0.0725;
 
@@ -10,7 +10,7 @@ const checkout = ({diffSellers, currUserCart, cartItemTotal, shippingCosts}) => 
           <h3>Cart Summary</h3>
           <div className='checkout-cart-sumarry-info'>
             <h4>Packages</h4>
-            <h4 className='right-align'>{diffSellers.length}</h4>
+            <h4 className='right-align'>{numPackages}</h4>
             <h4>Items</h4>
             <h4 className='right-align'>{currUserCart.length}</h4>
             <h4>Item Total</h4>
