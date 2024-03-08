@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react'
 import './ShoppingCartPage.css'
 import Axios from "axios";
-import { Navbar, ShoppingCartSellerCard, Checkout } from '../../containers'
+import { Navbar, ShoppingCartSellerCard, Checkout, SavedForLater } from '../../containers'
 
 const ShoppingCartPage = () => {
 
@@ -13,6 +13,7 @@ const ShoppingCartPage = () => {
   const [shippingCosts, setShippingCosts] = useState(0);
   const [numPackages, setNumPackages] = useState(0);
   const [shippingSelections, setShippingSelections] = useState([]);
+  const [savedForLater, setSavedForLater] = useState([]);
 
   function updateShippingCosts(seller, newCost) {
     const s = shippingSelections.find(item => {
@@ -48,7 +49,7 @@ const ShoppingCartPage = () => {
     setShippingCosts(sellersShipping.reduce((acc, curr) => {
       return acc + curr.standard_shipping_cost
     }, 0));
-    
+
   }
 
   useEffect(() => {
@@ -74,7 +75,7 @@ const ShoppingCartPage = () => {
         setNumPackages(res.data.length);
         const ss = [...shippingSelections];
         res.data.forEach(seller => {
-          ss.push({seller: seller.uname, shippingSelection: seller.standard_shipping_cost});
+          ss.push({ seller: seller.uname, shippingSelection: seller.standard_shipping_cost });
         })
         setShippingSelections(ss);
       } catch (err) {
@@ -99,7 +100,23 @@ const ShoppingCartPage = () => {
         console.log("Error: " + err);
       }
     }
+    const fetchCurrUserSavedForLater = async () => {
+      const apiPath = "http://localhost:3001/getSavedForLater";
+      try {
+        Axios.get(apiPath, {
+          params: {
+            currUser: currUserId
+          }
+        }).then(res => {
+          console.log(res.data);
+          setSavedForLater(res.data);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
     fetchCurrUserCart();
+    fetchCurrUserSavedForLater();
   }, []);
 
   return (
@@ -111,13 +128,15 @@ const ShoppingCartPage = () => {
           {diffSellers.map((seller, i) => {
             return <ShoppingCartSellerCard cartItemList={currUserCart.filter(card => {
               if (card.uname === seller.uname) {
-                 return card; 
-                } 
-              })} seller={seller} currUserCart={currUserCart} setCurrUserCart={setCurrUserCart} key={i} packageNum={i} length={diffSellers.length} setCartItemTotal={setCartItemTotal} updateShippingCosts={updateShippingCosts} />
+                return card;
+              }
+            })} seller={seller} currUserCart={currUserCart} setCurrUserCart={setCurrUserCart} key={i} packageNum={i} length={diffSellers.length} setCartItemTotal={setCartItemTotal} updateShippingCosts={updateShippingCosts} />
           })}
         </div>
         <Checkout numPackages={numPackages} currUserCart={currUserCart} cartItemTotal={cartItemTotal} shippingCosts={shippingCosts} />
       </div>
+      <hr className='separator'></hr>
+      <SavedForLater currUserId={currUserId} />
     </div>
   )
 }

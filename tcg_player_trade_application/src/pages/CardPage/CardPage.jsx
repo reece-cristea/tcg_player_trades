@@ -19,6 +19,7 @@ const CardPage = () => {
                         cardId: card_id
                     }
                 });
+                console.log(res.data)
                 setCardData(res.data);
                 setCardDisplayData(res.data[0]);
             } catch (err) {
@@ -27,6 +28,9 @@ const CardPage = () => {
         }
         fetchCard(cardParam.card_id);
     }, [])
+
+    useEffect(() => {
+    }, [cardDisplayData])
 
     return (
 
