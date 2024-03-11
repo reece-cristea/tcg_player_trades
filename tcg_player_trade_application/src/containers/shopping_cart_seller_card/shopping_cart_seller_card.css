@@ -66,3 +66,15 @@
     width: 100%;
     padding: 1rem;
 }
+
+.shipping-option:hover {
+    cursor: pointer;
+}
+
+.shipping-option-label:hover{
+    cursor: pointer;
+}
+
+.shipping-option input:hover {
+    cursor: pointer;
+}

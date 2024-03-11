@@ -60,3 +60,11 @@
     cursor: pointer;
     background-color: white;
 }
+
+.shopping-cart-card-quantity-selector:hover {
+    cursor: pointer;
+}
+
+.select-option:hover {
+    cursor: pointer;
+}

@@ -63,7 +63,7 @@ app.get('/getDiffSellers', (req, res) => {
 
 app.get('/getSavedForLater', (req, res) => {
     currUserId = req.query["currUser"];
-    const selectStatement = `SELECT c.card_name, c.card_picture_url, ic.individual_card_condition, ic.individual_card_price, sfli.sfl_item_id, sfli.sfl_item_quantity, c.card_quantity, sfli.sfl_id, sfl.sfl_uid, sfli.sfl_individual_card_id, sfl.sfl_uid FROM save_for_later_item sfli join save_for_later sfl on sfli.sfl_id = sfl.sfl_id join individual_card ic on sfli.sfl_individual_card_id = ic.individual_card_id join card c on ic.card_id = c.card_id where sfl.sfl_uid = ${currUserId};`
+    const selectStatement = `SELECT c.card_name, c.card_picture_url, ic.individual_card_condition, ic.individual_card_price, u.uname, sfli.sfl_item_id, sfli.sfl_item_quantity, c.card_quantity, sfli.sfl_id, sfl.sfl_uid, sfli.sfl_individual_card_id, sfl.sfl_uid FROM save_for_later_item sfli join save_for_later sfl on sfli.sfl_id = sfl.sfl_id join individual_card ic on sfli.sfl_individual_card_id = ic.individual_card_id join card c on ic.card_id = c.card_id join user u on ic.card_owner = u.uid where sfl.sfl_uid = ${currUserId};`
     db.query(selectStatement, (err,result) => {
         return res.json(result);
     })
