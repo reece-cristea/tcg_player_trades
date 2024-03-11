@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './shopping_cart_seller_card.css';
 import { ShoppingCartCardInfo } from '../../components';
 
-const ShoppingCartSellerCard = ({ cartItemList, seller, currUserCart, setCurrUserCart, packageNum, length, setCartItemTotal, updateShippingCosts }) => {
+const ShoppingCartSellerCard = ({ cartItemList, seller, currUserCart, setCurrUserCart, packageNum, length, setCartItemTotal, updateShippingCosts, updateSavedList }) => {
   const [shippingCost, setShippingCost] = useState(seller.standard_shipping_cost);
   const [cartItems, setCartItems] = useState(cartItemList);
 
@@ -23,6 +23,11 @@ const ShoppingCartSellerCard = ({ cartItemList, seller, currUserCart, setCurrUse
     setCartItems(ciItems);
   }
 
+  const saveItemToSavedList = (card) => {
+    updateSavedList(card);
+    removeItemFromCart(card);
+  }
+
   const updateCurrUserCart = currUserCart => {
     setCurrUserCart(currUserCart);
     setCartItemTotal(currUserCart.reduce((acc, curr) => {
@@ -39,9 +44,9 @@ const ShoppingCartSellerCard = ({ cartItemList, seller, currUserCart, setCurrUse
             {cartItems.map((card, i) => {
               if (cartItems.length > 0) {
                 if (i === 0) {
-                  return <ShoppingCartCardInfo card={card} currUserCart={currUserCart} setCurrUserCart={updateCurrUserCart} removeItemFromCart={removeItemFromCart} key={i} />;
+                  return <ShoppingCartCardInfo card={card} currUserCart={currUserCart} setCurrUserCart={updateCurrUserCart} removeItemFromCart={removeItemFromCart} saveItemToSavedList={saveItemToSavedList} key={i} />;
                 } else {
-                  return <div><hr></hr><ShoppingCartCardInfo card={card} currUserCart={currUserCart} setCurrUserCart={updateCurrUserCart} removeItemFromCart={removeItemFromCart} key={i} /></div>;
+                  return <div><hr></hr><ShoppingCartCardInfo card={card} currUserCart={currUserCart} setCurrUserCart={updateCurrUserCart} removeItemFromCart={removeItemFromCart} saveItemToSavedList={saveItemToSavedList} key={i} /></div>;
                 }
               }
             })}

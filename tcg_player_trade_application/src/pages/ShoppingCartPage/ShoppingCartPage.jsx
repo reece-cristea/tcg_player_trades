@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './ShoppingCartPage.css'
 import Axios from "axios";
 import { Navbar, ShoppingCartSellerCard, Checkout, SavedForLater } from '../../containers'
@@ -14,6 +14,13 @@ const ShoppingCartPage = () => {
   const [numPackages, setNumPackages] = useState(0);
   const [shippingSelections, setShippingSelections] = useState([]);
   const [savedForLater, setSavedForLater] = useState([]);
+
+  const shoppingCartPageRef = useRef();
+
+  const updateSavedList = (item) => {
+    shoppingCartPageRef.current.updateItemList(item);
+  }
+  
 
   function updateShippingCosts(seller, newCost) {
     const s = shippingSelections.find(item => {
@@ -130,13 +137,13 @@ const ShoppingCartPage = () => {
               if (card.uname === seller.uname) {
                 return card;
               }
-            })} seller={seller} currUserCart={currUserCart} setCurrUserCart={setCurrUserCart} key={i} packageNum={i} length={diffSellers.length} setCartItemTotal={setCartItemTotal} updateShippingCosts={updateShippingCosts} />
+            })} seller={seller} currUserCart={currUserCart} setCurrUserCart={setCurrUserCart} key={i} packageNum={i} length={diffSellers.length} setCartItemTotal={setCartItemTotal} updateShippingCosts={updateShippingCosts} updateSavedList={updateSavedList} />
           })}
         </div>
         <Checkout numPackages={numPackages} currUserCart={currUserCart} cartItemTotal={cartItemTotal} shippingCosts={shippingCosts} />
       </div>
       <hr className='separator'></hr>
-      <SavedForLater currUserId={currUserId} />
+      <SavedForLater currUserId={currUserId} savedForLater={savedForLater} ref={shoppingCartPageRef} />
     </div>
   )
 }

@@ -1,12 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import Axios from "axios";
 import { SavedForLaterCard } from '../../components';
 import './saved_for_later.css'
 
-const SavedForLater = ({ currUserId }) => {
+const SavedForLater = forwardRef(({ currUserId, savedForLater }, ref) => {
+
+  useImperativeHandle(ref, () => {
+    return {
+      updateItemList: updateItemList
+    }
+  })
+
+  const updateItemList = (item) => {
+    console.log(item);
+    let siList = [...itemList];
+    siList.push(item);
+    setItemList(siList);
+  }
 
   const [productNum, setProductNum] = useState("");
-  const [itemList, setItemList] = useState([]);
+  const [itemList, setItemList] = useState(savedForLater);
 
   useEffect(() => {
     const fetchCurrUserSavedForLater = async () => {
@@ -46,6 +59,6 @@ const SavedForLater = ({ currUserId }) => {
       })}
     </div>
   )
-}
+})
 
 export default SavedForLater

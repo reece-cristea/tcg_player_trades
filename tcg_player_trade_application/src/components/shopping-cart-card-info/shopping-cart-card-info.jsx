@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './shopping-cart-card-info.css'
 
-const ShoppingCartCardInfo = ({ card, currUserCart, setCurrUserCart, removeItemFromCart }) => {
+const ShoppingCartCardInfo = ({ card, currUserCart, setCurrUserCart, removeItemFromCart, saveItemToSavedList }) => {
 
   const [selectedQuantity, setSelectedQuantity] = useState(currUserCart.filter(item => {
     if (item.individual_card_id === card.individual_card_id) {
@@ -38,7 +38,9 @@ const ShoppingCartCardInfo = ({ card, currUserCart, setCurrUserCart, removeItemF
           <button className='card-cart-option' onClick={(e) => {
             removeItemFromCart(card);
           }}>Remove</button>
-          <button className='card-cart-option'>Save For Later</button>
+          <button className='card-cart-option' onClick={(e) => {
+            saveItemToSavedList(card);
+          }}>Save For Later</button>
         </div>
 
       </div>
