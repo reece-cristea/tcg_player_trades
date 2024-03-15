@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useImperativeHandle, forwardRef } from 'react';
 import './shopping_cart_seller_card.css';
 import { ShoppingCartCardInfo } from '../../components';
 
-const ShoppingCartSellerCard = ({ cartItemList, seller, currUserCart, setCurrUserCart, packageNum, length, setCartItemTotal, updateShippingCosts, updateSavedList }) => {
+const ShoppingCartSellerCard = forwardRef(({ cartItemList, seller, currUserCart, setCurrUserCart, packageNum, length, setCartItemTotal, updateShippingCosts, updateSavedList }, ref) => {
   const [shippingCost, setShippingCost] = useState(seller.standard_shipping_cost);
   const [cartItems, setCartItems] = useState(cartItemList);
+
+  useImperativeHandle(ref, () => {
+    return {
+      updateCartItems: updateCartItems
+    }
+  })
 
   const setShippingCosts = cost => {
     updateShippingCosts(seller.uname, cost);
     setShippingCost(cost);
+  }
+
+  const updateCartItems = (cart) => {
+    const list = cart.filter(card => {
+      if (card.uname === seller.uname) {
+        return card;
+      }});
+    setCartItems(list);
   }
 
   const removeItemFromCart = (card) => {
@@ -79,7 +93,6 @@ const ShoppingCartSellerCard = ({ cartItemList, seller, currUserCart, setCurrUse
                   <label className='shipping-option-label' htmlFor={"express" + seller.uname}><p className='left-align'>Express</p><p className='right-align'>${seller.express_shipping_cost.toFixed(2)}</p></label>
                 </div>
               </form>
-
             </div>
           </div>
         </div>
@@ -91,6 +104,6 @@ const ShoppingCartSellerCard = ({ cartItemList, seller, currUserCart, setCurrUse
   }
 
 
-}
+})
 
 export default ShoppingCartSellerCard

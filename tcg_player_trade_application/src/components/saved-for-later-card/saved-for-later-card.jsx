@@ -1,11 +1,7 @@
 import React from 'react'
 import './saved-for-later-card.css'
 
-const SavedForLaterCard = ({ item }) => {
-
-    const removeItemFromCart = (item) => {
-        console.log("removed");
-    }
+const SavedForLaterCard = ({ item, removeItemFromSaved, addItemToCart }) => {
 
     return (
         <div className='saved-for-later-card-container'>
@@ -19,9 +15,11 @@ const SavedForLaterCard = ({ item }) => {
                 </div>
             </div>
             <div className='saved-for-later-card-options'>
-                <button className='saved-for-later-add-to-cart-btn'>Add to Cart</button>
+                <button className='saved-for-later-add-to-cart-btn' onClick={(e) => {
+                    addItemToCart(item)
+                }}>Add to Cart</button>
                 <button className='card-cart-option' onClick={(e) => {
-                    removeItemFromCart(item);
+                    removeItemFromSaved(item)
                 }}>Remove</button>
             </div>
         </div>

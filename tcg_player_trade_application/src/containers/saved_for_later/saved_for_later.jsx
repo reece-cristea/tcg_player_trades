@@ -3,7 +3,7 @@ import Axios from "axios";
 import { SavedForLaterCard } from '../../components';
 import './saved_for_later.css'
 
-const SavedForLater = forwardRef(({ currUserId, savedForLater }, ref) => {
+const SavedForLater = forwardRef(({ currUserId, savedForLater, addItemToCart}, ref) => {
 
   useImperativeHandle(ref, () => {
     return {
@@ -11,8 +11,19 @@ const SavedForLater = forwardRef(({ currUserId, savedForLater }, ref) => {
     }
   })
 
+  const addItem = (item) => {
+    addItemToCart(item);
+    removeItemFromSaved(item);
+  }
+
+  const removeItemFromSaved = (item) => {
+    const siIndex = itemList.indexOf(item);
+    let siList = [...itemList];
+    siList.splice(siIndex, 1);
+    setItemList(siList);
+  }
+
   const updateItemList = (item) => {
-    console.log(item);
     let siList = [...itemList];
     siList.push(item);
     setItemList(siList);
@@ -55,7 +66,7 @@ const SavedForLater = forwardRef(({ currUserId, savedForLater }, ref) => {
       <h1 className='title-container'>Saved For Later</h1>
       <p>{productNum}</p>
       {itemList.map(item => {
-        return <SavedForLaterCard item={item} />
+        return <SavedForLaterCard item={item} removeItemFromSaved={removeItemFromSaved} addItemToCart={addItem}/>
       })}
     </div>
   )

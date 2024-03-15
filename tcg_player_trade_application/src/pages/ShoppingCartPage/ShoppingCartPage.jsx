@@ -16,11 +16,20 @@ const ShoppingCartPage = () => {
   const [savedForLater, setSavedForLater] = useState([]);
 
   const shoppingCartPageRef = useRef();
+  const addItem = useRef();
+
 
   const updateSavedList = (item) => {
     shoppingCartPageRef.current.updateItemList(item);
   }
   
+  const addItemToCart = (item) => {
+    item.cart_item_quantity = 1;
+    let aiList = [...currUserCart];
+    aiList.push(item);
+    setCurrUserCart(aiList);
+    addItem.current.updateCartItems(aiList);
+  }
 
   function updateShippingCosts(seller, newCost) {
     const s = shippingSelections.find(item => {
@@ -59,8 +68,15 @@ const ShoppingCartPage = () => {
 
   }
 
+  const updateCartItemTotal = () => {
+    setCartItemTotal(currUserCart.reduce((acc, curr) => {
+      return acc + (curr.individual_card_price * curr.cart_item_quantity)
+    }, 0));
+  }
+
   useEffect(() => {
     upadteShipping();
+    updateCartItemTotal();
   }, [currUserCart])
 
   useEffect(() => {
@@ -137,13 +153,13 @@ const ShoppingCartPage = () => {
               if (card.uname === seller.uname) {
                 return card;
               }
-            })} seller={seller} currUserCart={currUserCart} setCurrUserCart={setCurrUserCart} key={i} packageNum={i} length={diffSellers.length} setCartItemTotal={setCartItemTotal} updateShippingCosts={updateShippingCosts} updateSavedList={updateSavedList} />
+            })} seller={seller} currUserCart={currUserCart} setCurrUserCart={setCurrUserCart} key={i} packageNum={i} length={diffSellers.length} setCartItemTotal={setCartItemTotal} updateShippingCosts={updateShippingCosts} updateSavedList={updateSavedList} ref={addItem} />
           })}
         </div>
         <Checkout numPackages={numPackages} currUserCart={currUserCart} cartItemTotal={cartItemTotal} shippingCosts={shippingCosts} />
       </div>
       <hr className='separator'></hr>
-      <SavedForLater currUserId={currUserId} savedForLater={savedForLater} ref={shoppingCartPageRef} />
+      <SavedForLater currUserId={currUserId} savedForLater={savedForLater} addItemToCart={addItemToCart} ref={shoppingCartPageRef} />
     </div>
   )
 }
